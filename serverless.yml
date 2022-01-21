@@ -1,0 +1,68 @@
+service: service-lambda-thumb-tifig
+frameworkVersion: '2 || 3'
+app: lambda-thumb-tifig
+
+package:
+  patterns:
+    - '!node_modules/aws-sdk'
+    - '!node_modules/@aws-cdk'
+    - '!.idea'
+    - '!lib'
+    - '!.git'
+
+custom:
+  name: 'lambda-thumb-tifig'
+  environment: 'prod'
+  region: 'us-east-1'
+  lambda_prefix: ${self:custom.environment}-${self:custom.name}
+
+constructs:
+  sourceBucket:
+    type: storage
+  destinationBucket:
+    type: storage
+
+
+provider:
+  name: aws
+  lambdaHashingVersion: '20201221'
+  environment:
+    DESTINATION_BUCKET: ${construct:destinationBucket.bucketName}
+    REGION: ${self:custom.region}
+  region: ${self:custom.region}
+  runtime: nodejs14.x
+  iamRoleStatements:
+    - Effect: "Allow"
+      Action:
+        - "s3:PutBucketNotification"
+        - "s3:GetObject"
+        - "s3:PutObject"
+      Resource:
+        Fn::Join:
+          - ""
+          - - "arn:aws:s3:::*"
+    - Effect: "Allow"
+      Action:
+        - "rds:*"
+      Resource: "*"
+
+plugins:
+  - serverless-lift
+
+functions:
+  ffmpeg-tifig:
+    memorySize: 10240
+    name: ${self:custom.lambda_prefix}
+    handler: src/index.handler
+    timeout: 300
+    events:
+      - s3:
+          bucket: ${construct:sourceBucket.bucketName}
+          existing: true
+
+    layers:
+      - { Ref: LibLambdaLayer }
+
+layers:
+  lib:
+    path: lib

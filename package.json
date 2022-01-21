@@ -1,0 +1,13 @@
+{
+  "name": "lambda-ffmpeg-tifig",
+  "version": "1.0.0",
+  "main": "src/index.js",
+  "repository": "git@github.com:avkos/lambda-ffmpeg-tifig.git",
+  "author": "Oleksii Kosynskyi <oleksii.kosynskyi@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "serverless": "^2.72.0",
+    "serverless-lift": "^1.11.0",
+    "shell-escape": "^0.2.0"
+  }
+}
