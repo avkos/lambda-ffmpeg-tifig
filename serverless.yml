@@ -9,6 +9,7 @@ package:
     - '!node_modules/serverless'
     - '!node_modules/serverless-lift'
     - '!.idea'
+    - '!gif'
     - '!yarn.lock'
     - '!yarn.error.log'
     - '!README.md'
