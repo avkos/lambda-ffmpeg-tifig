@@ -1,7 +1,6 @@
 const fs = require('fs')
 const config = require('./config')
 const { S3 } = require('aws-sdk')
-const os = require('os')
 const path = require('path')
 
 class File {
@@ -39,7 +38,7 @@ class File {
   }
 
   isHeic(key) {
-    return this.getExt(key) === config.IMAGE.HEIC
+    return this.getExt(key) === config.IMAGE.FORMAT.HEIC
   }
 
   isPhoto(fName) {
@@ -51,7 +50,7 @@ class File {
   }
 
   getDownloadNameIfHeic(key, ext) {
-    return ext === config.IMAGE.HEIC ? `${this.getDownloadName(key)}.${config.IMAGE.JPG}` : this.getDownloadName(key)
+    return ext === config.IMAGE.FORMAT.HEIC ? `${this.getDownloadName(key)}.${config.IMAGE.FORMAT.JPG}` : this.getDownloadName(key)
   }
 
   getPrefix(name) {
@@ -59,15 +58,15 @@ class File {
   }
 
   getNameWithPrefix(key, name, divider = '/', ext = '') {
-    if (ext === config.IMAGE.HEIC) {
-      return `${this.getPrefix(name)}${divider}${String(key).replace(new RegExp(/\//ig), '-')}.${config.IMAGE.JPG}`
+    if (ext === config.IMAGE.FORMAT.HEIC) {
+      return `${this.getPrefix(name)}${divider}${String(key).replace(new RegExp(/\//ig), '-')}.${config.IMAGE.FORMAT.JPG}`
     }
     return `${this.getPrefix(name)}${divider}${String(key).replace(new RegExp(/\//ig), '-')}`
   }
 
   getOutputDirNameThumb(key, name, ext) {
-    if (ext === config.IMAGE.HEIC) {
-      return path.join(this.dir.output, `${this.getNameWithPrefix(key, name, '-')}.${config.IMAGE.JPG}`)
+    if (ext === config.IMAGE.FORMAT.HEIC) {
+      return path.join(this.dir.output, `${this.getNameWithPrefix(key, name, '-')}.${config.IMAGE.FORMAT.JPG}`)
     }
     return path.join(this.dir.output, `${this.getNameWithPrefix(key, name, '-')}`)
   }
