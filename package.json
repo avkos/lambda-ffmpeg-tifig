@@ -6,8 +6,10 @@
   "author": "Oleksii Kosynskyi <oleksii.kosynskyi@gmail.com>",
   "license": "MIT",
   "dependencies": {
-    "serverless": "^2.72.0",
     "serverless-lift": "^1.11.0",
     "shell-escape": "^0.2.0"
+  },
+  "devDependencies": {
+    "serverless": "^2.72.2"
   }
 }

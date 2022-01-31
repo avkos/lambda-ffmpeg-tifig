@@ -49,10 +49,6 @@ provider:
         Fn::Join:
           - ""
           - - "arn:aws:s3:::*"
-    - Effect: "Allow"
-      Action:
-        - "rds:*"
-      Resource: "*"
 
 plugins:
   - serverless-lift
