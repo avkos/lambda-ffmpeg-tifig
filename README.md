@@ -1,7 +1,3 @@
-# Article
-
-Detailed article here https://habr.com/ru/post/648519
-
 # Create thumbs with Serverless + Lambda + ffmpeg
 
 # With ffmpeg you can create thumb:
